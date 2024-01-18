@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import MobileCategorySelection from "./MobileCategorySelection";
+import MobileFeatures from "./MobileFeatures";
 
-function App() {
+const App = () => {
+  const mobileCategories = [
+    "Android Mobiles",
+    "iPhones",
+    "Keypad Mobiles",
+    "Non-Android Screen Touch Mobiles",
+    "Windows Mobiles",
+    "MP3 Mobiles",
+  ];
+
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  const handleCategorySelection = (category) => {
+    setSelectedCategory(category);
+  };
+
+  const handleSaveMobileFeatures = (mobileDetails) => {
+    console.log("Saved Mobile Features:", mobileDetails);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Mobile Features Management</h1>
+      <MobileCategorySelection
+        categories={mobileCategories}
+        onSelectCategory={handleCategorySelection}
+      />
+      {selectedCategory && (
+        <MobileFeatures
+          category={selectedCategory}
+          onSave={handleSaveMobileFeatures}
+        />
+      )}
     </div>
   );
-}
+};
 
 export default App;
